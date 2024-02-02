@@ -2,7 +2,9 @@ import React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ProjectList } from "../helpers/ProjectList";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import "../styles/ProjectDisplay.css";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Tooltip from "@mui/material/Tooltip";
 
 function ProjectDisplay() {
   const navigate = useNavigate();
@@ -20,15 +22,7 @@ function ProjectDisplay() {
   };
 
   return (
-    <div className="project">
-      <h1>{project.name}</h1>
-      <img src={project.image} alt={project.name} />
-      <p>
-        <b>Skills:</b> {project.skills}
-      </p>
-      <Link to={project.githubLink}>
-        <GitHubIcon />
-      </Link>
+    <div className="flex items-center justify-center">
       <div>
         <button
           onClick={() => {
@@ -36,15 +30,50 @@ function ProjectDisplay() {
             navigate(`/projects/${previousIndex}`);
           }}
         >
-          Previous Project
+          <Tooltip title="Previous Project" placement="left">
+            <ArrowBackIosNewIcon sx={{ fontSize: 60 }} />
+          </Tooltip>
         </button>
+      </div>
+      <div className="flex flex-col items-center">
+        <h1 className="m-5 text-3xl">{project.name}</h1>
+        <img
+          style={{ width: "600px" }}
+          src={project.image}
+          alt={project.name}
+        />
+        <p className="m-5">
+          <b>Skills:</b> {project.skills}
+        </p>
+        <p style={{ width: "700px" }}>
+          <b>Overview: </b>
+          {project.desc}
+        </p>
+        <div className="flex items-center m-5 gap-4">
+          <Link
+            className="p-5 border border-black"
+            to={project.liveLink}
+            target="_blank"
+          >
+            View Live Project
+          </Link>
+          <Link to={project.githubLink}>
+            <Tooltip title="Project GitHub" placement="right">
+              <GitHubIcon sx={{ fontSize: 40 }} />
+            </Tooltip>
+          </Link>
+        </div>
+      </div>
+      <div>
         <button
           onClick={() => {
             const nextIndex = getNextProjectIndex(num);
             navigate(`/projects/${nextIndex}`);
           }}
         >
-          Next Project
+          <Tooltip title="Next Project" placement="right">
+            <ArrowForwardIosIcon sx={{ fontSize: 60 }} />
+          </Tooltip>
         </button>
       </div>
     </div>

@@ -1,21 +1,15 @@
 import React from "react";
-import ProjectItem from "../components/ProjectItem";
-import "../styles/Projects.css"; // contains CSS for ProjectItem
 import { ProjectList } from "../helpers/ProjectList";
+import ProjectItem from "../components/ProjectItem";
 
 function Projects() {
   return (
-    <div className="projects">
+    <div className="flex flex-col items-center m-5">
       <h1 className="text-3xl">My Personal Projects</h1>
-      <div className="projectList">
+      <div className="flex flex-wrap gap-10 p-5">
         {ProjectList.map((project, idx) => {
           return (
-            <ProjectItem
-              id={idx}
-              key={project.name}
-              name={project.name}
-              image={project.image}
-            />
+            <ProjectItem image={project.image} name={project.name} id={idx} />
           );
         })}
       </div>
